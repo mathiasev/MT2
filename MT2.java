@@ -16,6 +16,9 @@ public class MT2
     public MT2()
     {
         // initialise instance variables
+        for(Service s: slServiceList.getServiceList()) {
+         System.out.println(s.getName() );  
+        }
         
         Quote q = new Quote();
         WebQuote wq = new WebQuote(q);

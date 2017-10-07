@@ -1,14 +1,14 @@
 
 /**
- * Write a description of class Service here.
+ *  Service.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author u3160264 (Mathias Everson)
+ * @version 20171007
  */
 public class Service
 {
     // instance variables - replace the example below with your own
-    private int x;
+    private String sName;
 
     /**
      * Constructor for objects of class Service
@@ -16,18 +16,14 @@ public class Service
     public Service()
     {
         // initialise instance variables
-        x = 0;
-    }
 
-    /**
-     * An example of a method - replace this comment with your own
-     *
-     * @param  y  a sample parameter for a method
-     * @return    the sum of x and y
-     */
-    public int sampleMethod(int y)
-    {
-        // put your code here
-        return x + y;
+    }
+    
+    public Service(String sName) {
+        this.sName = sName;
+    }
+    
+    public String getName() {
+        return this.sName;
     }
 }

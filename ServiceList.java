@@ -1,14 +1,22 @@
+import java.io.*;
+import java.util.List;
+import java.util.ArrayList;
+
 
 /**
- * Write a description of class ServiceList here.
+ * ServiceList
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author u360264
+ * @version 20171007
  */
 public class ServiceList
 {
+        public static final String SERVICE_FILE_PATH = "C:\\Users\\Mathias Everson\\OneDrive - University of Canberra\\Semester 2\\Software Technology 1\\MT2\\ServiceCodes.txt";
+        public static final String TEXTSEPERATOR = ",";
+        
     // instance variables - replace the example below with your own
-    private int x;
+    private BufferedReader brReader;
+    private List<Service> lsServiceList = new ArrayList();
 
     /**
      * Constructor for objects of class ServiceList
@@ -19,7 +27,27 @@ public class ServiceList
         loadServices();
     }
 
+    public List<Service> getServiceList() { return lsServiceList;}
+    
    private void loadServices() {
-       Service sService = new Service();
+       
+       try {
+          brReader =  new BufferedReader(new FileReader(SERVICE_FILE_PATH));
+       String sLine;
+         while ((sLine = brReader.readLine()) != null)
+        {
+            //System.out.println(sPersonString);
+             String[] saLineArray= sLine.split(TEXTSEPERATOR);
+             Service sService = new Service(saLineArray[0]);    
+             lsServiceList.add(sService);
+}
+        brReader.close();
+       
+      
+        
     }
+    catch (IOException e) {
+        System.out.println("File Not Found");
+    }
+}
 }
