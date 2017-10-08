@@ -16,4 +16,8 @@ private Service sService;
     public Quote()
     {
     }
+    
+    public void setService(Service sService) {
+        this.sService = sService;
+    }
 }
