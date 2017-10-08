@@ -36,7 +36,12 @@ public class ServiceList
        String sLine;
          while ((sLine = brReader.readLine()) != null)
         {
-            //System.out.println(sPersonString);
+            String sServiceCode = saLineArray[0].trim();
+            String sDescriptionn = saLinenArray[1].trim();
+                 try {
+            Double dPrivce = Double.parseDouble(saLine[2].trim());
+                 } catch (Exception e) { System.out.println("Error converting price"); }
+                         //System.out.println(sPersonString);
              String[] saLineArray= sLine.split(TEXTSEPERATOR);
              Service sService = new Service(saLineArray[0]);    
              lsServiceList.add(sService);
