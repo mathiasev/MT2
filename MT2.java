@@ -17,9 +17,13 @@ public class MT2
     {
         // initialise instance variables
         for(Service s: slServiceList.getServiceList()) {
-         System.out.println(s.getName() );  
+            if(s.isInMenu())
+            {
+                String sLine = String.format("%8s : %s", s.getName(), s.getDescription());
+                System.out.println(sLine);  
+            }
         }
-        
+
         Quote q = new Quote();
         WebQuote wq = new WebQuote(q);
     }

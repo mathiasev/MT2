@@ -43,7 +43,7 @@ public class ServiceList
             String sServiceCode = saLineArray[0].trim();
             String sDescription = saLineArray[1].trim();
             
-            Double dPrice;
+            Double dPrice = null;
             try {
                dPrice  = Double.parseDouble(saLineArray[2].trim());
             } catch (Exception e) { System.out.println("Error converting price"); }
