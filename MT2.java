@@ -19,6 +19,10 @@ public class MT2 extends JFrame
     private List<Service> lsServiceList = slServiceList.getServiceList();
     private ClientList clClientList = new ClientList();
     private Quote q;
+    ButtonGroup orbitButtons = new ButtonGroup();
+    JPanel radioPanel = new JPanel(new GridLayout(0, 1));
+    String[] saOrbits = new String[2];
+
     /**
      * Constructor for objects of class MT2
      */
@@ -30,6 +34,18 @@ public class MT2 extends JFrame
     }
 
     private void init() {
+        /*
+         *  0. Hide items not yet required
+         */
+        radioPanel.setVisible(false);
+
+        /*
+         * 1. Create Heading
+         */
+        JLabel jLabelHeading = new JLabel("Space Y Quoting System");
+        Font headingFont = new Font("Helvetica",Font.BOLD, 14);
+        jLabelHeading.setFont(headingFont);
+
         //1. Create the frame.
         //JFrame frame = new JFrame("Space Y Quoting System");
 
@@ -52,33 +68,45 @@ public class MT2 extends JFrame
             }
         }
 
-        ListSelectionListener listSelectionListener = new ListSelectionListener() {
-                public void valueChanged(ListSelectionEvent listSelectionEvent) {
-                    boolean adjust = listSelectionEvent.getValueIsAdjusting();
-                    if (!adjust) {
-                        System.out.println(list.getSelectedValue());
-                    }
-                }
-            };
-        list.addListSelectionListener(listSelectionListener);
+        /*
+         * ListSelectionListener listSelectionListener = new ListSelectionListener() {
+         *        public void valueChanged(ListSelectionEvent listSelectionEvent) {
+         *            boolean adjust = listSelectionEvent.getValueIsAdjusting();
+         *            if (!adjust) {
+         *                System.out.println(list.getSelectedValue());
+         *            }
+         *        }
+         *    };
+         * list.addListSelectionListener(listSelectionListener);
+         */
 
-        JLabel jLabelHeading = new JLabel("Space Y Quoting System");
-        Font headingFont = new Font("Helvetica",Font.BOLD, 14);
-        jLabelHeading.setFont(headingFont);
 
         JButton submitCode = new JButton("Submit Code");
-
+        submitCode.setActionCommand("Set Service Code");
         submitCode.addActionListener(new ActionListener()
             {
                 public void actionPerformed(ActionEvent e)
                 {
-                    // display/center the jdialog when the button is pressed
-                    q.setService(lsServiceList.get(list.getSelectedIndex()));
+                    if ("Set Service Code".equals(e.getActionCommand())) {
+                        // display/center the jdialog when the button is pressed
+                        q.setService(lsServiceList.get(list.getSelectedIndex()));
+
+                        getOrbit();
+
+                    }
                 }
             });
+
+        //Create the radio buttons.
+        //String[] 
+
+        /*
+         * Add elements to frame
+         */    
         this.getContentPane().add(jLabelHeading, BorderLayout.NORTH);
         this.getContentPane().add(list, BorderLayout.CENTER);
-        this.getContentPane().add(submitCode, BorderLayout.SOUTH);
+        this.getContentPane().add(submitCode, BorderLayout.SOUTH); 
+        this.getContentPane().add(radioPanel, BorderLayout.SOUTH);
 
         //4. Size the frame.
         this.pack();
@@ -87,5 +115,18 @@ public class MT2 extends JFrame
         this.setVisible(true);
 
         WebQuote wq = new WebQuote(q);   
+    }
+
+    private void getOrbit() {
+
+        radioPanel.setVisible(true);
+
+        saOrbits = q.getOrbits();
+        for (String orbit:saOrbits) {
+            JRadioButton orbitButton = new JRadioButton(orbit);
+            orbitButtons.add(orbitButton);
+            radioPanel.add(orbitButton);
+        }
+
     }
 }

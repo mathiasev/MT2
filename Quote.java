@@ -20,4 +20,8 @@ private Service sService;
     public void setService(Service sService) {
         this.sService = sService;
     }
+    
+    public String[] getOrbits() {
+        return this.sService.getOrbits();
+    }
 }

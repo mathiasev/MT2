@@ -36,6 +36,10 @@ public class Service
         
     }
     
+    public String[] getOrbits() {
+     return this.saOrbit;   
+    }
+    
     public Boolean isInMenu() {
         return this.bShowMenu;
     }
