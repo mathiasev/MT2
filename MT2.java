@@ -12,7 +12,7 @@ import javax.swing.event.ListSelectionListener;
  * @author u3160264
  * @version 20171007
  */
-public class MT2
+public class MT2 extends JFrame
 {
     // instance variables - replace the example below with your own
     private ServiceList slServiceList = new ServiceList();
@@ -31,10 +31,10 @@ public class MT2
 
     private void init() {
         //1. Create the frame.
-        JFrame frame = new JFrame("Space Y Quoting System");
+        //JFrame frame = new JFrame("Space Y Quoting System");
 
         //2. Optional: What happens when the frame closes?
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //3. Create components and put them in the frame.
         DefaultListModel model = new DefaultListModel();
@@ -65,29 +65,27 @@ public class MT2
         JLabel jLabelHeading = new JLabel("Space Y Quoting System");
         Font headingFont = new Font("Helvetica",Font.BOLD, 14);
         jLabelHeading.setFont(headingFont);
-        
+
         JButton submitCode = new JButton("Submit Code");
-        
-submitCode.addActionListener(new ActionListener()
-{
-  public void actionPerformed(ActionEvent e)
-  {
-    // display/center the jdialog when the button is pressed
-  q.setService(lsServiceList.get(list.getSelectedIndex()));
-  }
-});
-        frame.getContentPane().add(jLabelHeading, BorderLayout.NORTH);
-        frame.getContentPane().add(list, BorderLayout.CENTER);
-        frame.getContentPane().add(submitCode, BorderLayout.SOUTH);
-        
+
+        submitCode.addActionListener(new ActionListener()
+            {
+                public void actionPerformed(ActionEvent e)
+                {
+                    // display/center the jdialog when the button is pressed
+                    q.setService(lsServiceList.get(list.getSelectedIndex()));
+                }
+            });
+        this.getContentPane().add(jLabelHeading, BorderLayout.NORTH);
+        this.getContentPane().add(list, BorderLayout.CENTER);
+        this.getContentPane().add(submitCode, BorderLayout.SOUTH);
 
         //4. Size the frame.
-        frame.pack();
+        this.pack();
 
         //5. Show it.
-        frame.setVisible(true);
+        this.setVisible(true);
 
-        
         WebQuote wq = new WebQuote(q);   
     }
 }
