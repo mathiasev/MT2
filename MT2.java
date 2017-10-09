@@ -37,6 +37,33 @@ public class MT2 extends JFrame
         /*
          *  0. Hide items not yet required
          */
+       
+        
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                createAndShowGUI();
+            }
+        });
+        
+        //4. Size the frame.
+       
+
+        WebQuote wq = new WebQuote(q);   
+    }
+
+    private void createAndShowGUI() {
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        
+        this.addComponents(this.getContentPane());
+        this.pack();
+
+        //5. Show it.
+        this.setVisible(true);
+        
+
+    }
+    private void addComponents(Container pane) {
         radioPanel.setVisible(false);
 
         /*
@@ -46,12 +73,11 @@ public class MT2 extends JFrame
         Font headingFont = new Font("Helvetica",Font.BOLD, 14);
         jLabelHeading.setFont(headingFont);
 
-        //1. Create the frame.
-        //JFrame frame = new JFrame("Space Y Quoting System");
-
-        //2. Optional: What happens when the frame closes?
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+       
+        //2. Set layout options?
+       
+        
+        
         //3. Create components and put them in the frame.
         DefaultListModel model = new DefaultListModel();
         JList list = new JList(model);
@@ -82,6 +108,8 @@ public class MT2 extends JFrame
 
 
         JButton submitCode = new JButton("Submit Code");
+        submitCode.setVisible(true);
+       
         submitCode.setActionCommand("Set Service Code");
         submitCode.addActionListener(new ActionListener()
             {
@@ -103,30 +131,25 @@ public class MT2 extends JFrame
         /*
          * Add elements to frame
          */    
-        this.getContentPane().add(jLabelHeading, BorderLayout.NORTH);
-        this.getContentPane().add(list, BorderLayout.CENTER);
-        this.getContentPane().add(submitCode, BorderLayout.SOUTH); 
-        this.getContentPane().add(radioPanel, BorderLayout.SOUTH);
-
-        //4. Size the frame.
-        this.pack();
-
-        //5. Show it.
-        this.setVisible(true);
-
-        WebQuote wq = new WebQuote(q);   
+        getContentPane().add(jLabelHeading, BorderLayout.NORTH);
+        getContentPane().add(list, BorderLayout.NORTH);
+        getContentPane().add(submitCode, BorderLayout.SOUTH); 
+  
     }
-
+   
     private void getOrbit() {
 
-        radioPanel.setVisible(true);
+orbitButtons = new ButtonGroup();
+radioPanel.removeAll();
 
         saOrbits = q.getOrbits();
-        for (String orbit:saOrbits) {
-            JRadioButton orbitButton = new JRadioButton(orbit);
+        for (int i = 0; i<saOrbits.length; i++) {
+            JRadioButton orbitButton = new JRadioButton(saOrbits[i]);
             orbitButtons.add(orbitButton);
             radioPanel.add(orbitButton);
         }
-
+        radioPanel.setVisible(true);
+              getContentPane().add(radioPanel, BorderLayout.SOUTH);
+pack();
     }
 }

@@ -13,7 +13,7 @@ public class ServiceList
 {
         public static final String SERVICE_FILE_PATH = "ServiceCodes.txt";
         public static final String TEXTSEPERATOR = ",";
-        public static final String ORBITSEPERATOR = "|";
+        public static final String ORBITSEPERATOR = "\\|";
         
     // instance variables - replace the example below with your own
     private BufferedReader brReader;
@@ -48,13 +48,17 @@ public class ServiceList
                dPrice  = Double.parseDouble(saLineArray[2].trim());
             } catch (Exception e) { System.out.println("Error converting price"); }
             
-            String[] saOrbit = saLineArray[3].trim().split(ORBITSEPERATOR);
+            String sOrbits = saLineArray[3];
+            System.out.println(sOrbits);
+            String[] saOrbits = saLineArray[3].split(ORBITSEPERATOR);
+            System.out.println(saOrbits.length);
+         
             
             String sManned = saLineArray[4].trim();
             
 
 
-             Service sService = new Service(sServiceCode, sDescription, dPrice, saOrbit, sManned);    
+             Service sService = new Service(sServiceCode, sDescription, dPrice, saOrbits, sManned);    
              lsServiceList.add(sService);
             } catch (Exception e) 
             {

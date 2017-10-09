@@ -11,6 +11,12 @@ public class main
     {
         System.out.println("\u000c");
         // initialise instance variables
-        MT2 mt2 = new MT2();
+                javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                createAndShowGUI();
+            }
+        });
+MT2 mt2 = new MT2();
+
     }
 }
