@@ -13,9 +13,7 @@ public class WebQuote extends QuoteView
     /**
      *  WebQuote constructor
      */
-    public WebQuote(Quote qQuote)
-    {
-        // initialise instance variables
-        this.qQuote = qQuote;
+   public WebQuote(Quote qQuote) {
+       super(qQuote);
     }
 }
