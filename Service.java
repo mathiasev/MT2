@@ -36,8 +36,12 @@ public class Service
         
     }
     
+    public boolean isManned() {
+     return this.bManned;   
+    }
+    
     public String firstOrbit() {
-     return saOrbit[0];   
+     return this.saOrbit[0];   
     }
     
     public boolean askOrbit() {

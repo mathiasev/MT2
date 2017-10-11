@@ -11,11 +11,17 @@ public class Quote
 private Client cClient;
 private Service sService = new Service();
 private String sName;
+private double dPayloadVal;
+
     /**
      * Constructor Quotes
      */
     public Quote()
     {
+    }
+    
+    public void setPayloadValue(Double dPayloadVal) {
+        this.dPayloadVal = dPayloadVal;
     }
     
     public void setName(String sName) {

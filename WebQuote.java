@@ -15,5 +15,14 @@ public class WebQuote extends QuoteView
      */
    public WebQuote(Quote qQuote) {
        super(qQuote);
+       this.qQuote = qQuote;
+    }
+    
+    public String getHTML() {
+        String html = "<html><table><thead><th>SpaceY Quoting</th></thead>"+
+                      "<tbody><tr><td>Service</td><td>" + qQuote.service().getName() + "</td></tr></tbody>" +
+                      "</table></html>";
+        return html;
+        
     }
 }

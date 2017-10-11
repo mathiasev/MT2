@@ -57,7 +57,6 @@ public class ServiceList
                     } catch (Exception e) { System.out.println("Error converting price"); }
 
                     String sOrbits = saLineArray[3].replaceAll(" ","");
-                    System.out.println(sOrbits);
                     String[] saOrbits = saLineArray[3].split(ORBITSEPERATOR);
                     for(int i = 0; i < saOrbits.length; i++) {
                         saOrbits[i] = saOrbits[i].trim();
