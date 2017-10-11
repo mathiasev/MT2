@@ -30,7 +30,8 @@ private String sName;
         this.sService = sService;
     }
     
-    public String[] getOrbits() {
-        return this.sService.getOrbits();
+    
+    public Service service() {
+        return this.sService;
     }
 }

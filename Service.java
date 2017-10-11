@@ -36,6 +36,14 @@ public class Service
         
     }
     
+    public String firstOrbit() {
+     return saOrbit[0];   
+    }
+    
+    public boolean askOrbit() {
+     return this.bAskOrbit;   
+    }
+    
     public String[] getOrbits() {
      return this.saOrbit;   
     }
@@ -56,3 +64,4 @@ public class Service
         return this.sName;
     }
 }
+ 

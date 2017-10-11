@@ -23,11 +23,19 @@ public class ServiceList
      * Constructor for objects of class ServiceList
      */
     public ServiceList()
-    {
+    { 
         // initialise instance variables
         loadServices();
     }
 
+    public String[] getNames() {
+        String[] saStrings = new String[lsServiceList.size()];
+        for(int i = 0; i<lsServiceList.size(); i++) {
+            saStrings[i] = lsServiceList.get(i).getName();
+        }
+        return saStrings;
+    }
+    
     public List<Service> getServiceList() { return lsServiceList;}
     
    private void loadServices() {
@@ -48,15 +56,16 @@ public class ServiceList
                dPrice  = Double.parseDouble(saLineArray[2].trim());
             } catch (Exception e) { System.out.println("Error converting price"); }
             
-            String sOrbits = saLineArray[3];
+            String sOrbits = saLineArray[3].replaceAll(" ","");
             System.out.println(sOrbits);
             String[] saOrbits = saLineArray[3].split(ORBITSEPERATOR);
-            System.out.println(saOrbits.length);
-         
-            
-            String sManned = saLineArray[4].trim();
-            
+            for(int i = 0; i < saOrbits.length; i++) {
+                saOrbits[i] = saOrbits[i].trim();
+               
+            }
 
+      
+            String sManned = saLineArray[4].trim();
 
              Service sService = new Service(sServiceCode, sDescription, dPrice, saOrbits, sManned);    
              lsServiceList.add(sService);
