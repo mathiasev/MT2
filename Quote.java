@@ -30,6 +30,13 @@ private String sName;
         this.sService = sService;
     }
     
+    public void setClient(Client cClient){
+   this.cClient = cClient;
+    }
+    
+    public Client client() {
+     return this.cClient;   
+    }
     
     public Service service() {
         return this.sService;

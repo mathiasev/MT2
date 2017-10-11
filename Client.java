@@ -26,5 +26,9 @@ public class Client
      this.dCreditLimit = dCreditLimit;
     }
     
-    
+   public String getName() { return this.sName; }
+   public String getCode() {return this.sCode;}
+   public String getTitle() { return this.sTitle;}
+   public Double getCreditLimit() {return this.dCreditLimit;}
+
 }
