@@ -10,7 +10,7 @@ public class Service
     // instance variables - replace the example below with your own
     private String sName;
     private String sDescription;
-    private Double dPrice;
+    private double dPrice;
     private String[] saOrbit;
     private Boolean bAskOrbit;
     private Boolean bManned;

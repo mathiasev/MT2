@@ -13,12 +13,16 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import javax.swing.border.Border;
 import javax.swing.*;
+import javax.swing.text.html.*;
+
 
 public class MT2 extends JFrame {
     final static int SCALING = 2;
     final static Color BG_COLOR = new Color(214,217,223);
     final static Font FONT = new Font("sansserif",0,12*SCALING);
     final static int ROW_HEIGHT = 40*SCALING;
+    final static StyleSheet styles = new StyleSheet();
+    
 
     private JLabel SetClientCode_Label,
     SetOrbitLevel_Label,
@@ -57,6 +61,7 @@ public class MT2 extends JFrame {
     bInsuranceSet,
     bGenerateQuote,
     bServiceSet;
+    private WebQuote webQ;
 
     /**
      * MT2 Constructor
@@ -188,6 +193,11 @@ public class MT2 extends JFrame {
         nitroButton.setVisible(false);
         nitroButton.setFont(FONT);
         nitroButton.setBounds(120*SCALING, y, 100*SCALING,30*SCALING);
+        nitroButton.addActionListener(new ActionListener() {
+           public void actionPerformed(ActionEvent evt) {
+             tempQuote.setNitrogen(nitroButton.isSelected());  
+            }
+        });
 
         y+=ROW_HEIGHT;
 
@@ -230,9 +240,12 @@ public class MT2 extends JFrame {
                 public void actionPerformed(ActionEvent evt) {
                     checkGo();
                     if(bGenerateQuote) {
+                        tempQuote.setLaunches((int)launchCount.getValue());
                         tempQuote.calculate();
                         qlQuotes.add(tempQuote);
-                        WebQuote webQ = new WebQuote(tempQuote);
+                        QuoteView qv = new QuoteView(tempQuote);
+                        qv.showQuote();
+                        webQ = new WebQuote(tempQuote);
                         htmlLabel.setText(webQ.getHTML());
                         panel1.setVisible(false);
                         panel2.setVisible(true);
@@ -323,7 +336,7 @@ public class MT2 extends JFrame {
 
     private void setPayloadValue(ChangeEvent e) {
         tempQuote.setPayloadValue((Double)insuranceValue.getValue());
-
+        tempQuote.setInsurance(true);
         bInsuranceSet = true;
         checkGo();
     }
@@ -350,6 +363,7 @@ public class MT2 extends JFrame {
 
         if(!tempQuote.service().askOrbit() && tempQuote.service().isManned()) {
             tempQuote.setOrbitLevel(tempQuote.service().firstOrbit());
+            
             bOrbitSet = true;
             //button1.setVisible(true);
         }
