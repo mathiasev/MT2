@@ -36,6 +36,12 @@ public class Service
         
     }
     
+ 
+    
+    public double getCost() {
+     return this.dPrice;   
+    }
+    
     public boolean isManned() {
      return this.bManned;   
     }

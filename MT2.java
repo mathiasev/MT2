@@ -140,6 +140,7 @@ public class MT2 extends JFrame {
         ActionListener listener = new ActionListener(){
                 public void actionPerformed(ActionEvent evt) {
                     //System.out.println(((JRadioButton)evt.getSource()).getText());
+                    tempQuote.setOrbitLevel(((JRadioButton)evt.getSource()).getText());
                     bOrbitSet = true;
                     checkGo();
                 }
@@ -229,7 +230,7 @@ public class MT2 extends JFrame {
                 public void actionPerformed(ActionEvent evt) {
                     checkGo();
                     if(bGenerateQuote) {
-
+                        tempQuote.calculate();
                         qlQuotes.add(tempQuote);
                         WebQuote webQ = new WebQuote(tempQuote);
                         htmlLabel.setText(webQ.getHTML());
@@ -331,7 +332,7 @@ public class MT2 extends JFrame {
         tempQuote.setClient(clClientList.get(combobox1.getSelectedIndex()));  
         clientLabel.setText(tempQuote.client().getName());
         clientLabel.setVisible(true);
-
+        
         bClientSet = true; checkGo();
     }
 
@@ -341,13 +342,14 @@ public class MT2 extends JFrame {
         codeLabel.setText(tempQuote.service().getDescription());
         codeLabel.setVisible(true);
         bServiceSet = true;
-        insuranceButton.setVisible(false);
+        if(!insuranceButton.isSelected() && tempQuote.service().isManned()) {insuranceButton.setVisible(false);
         insuranceValue.setVisible(false);
-        insuranceLabel.setVisible(false);
+        insuranceLabel.setVisible(false);}
         nitroButton.setVisible(false);
         nitroLabel.setVisible(false);  
 
         if(!tempQuote.service().askOrbit() && tempQuote.service().isManned()) {
+            tempQuote.setOrbitLevel(tempQuote.service().firstOrbit());
             bOrbitSet = true;
             //button1.setVisible(true);
         }
@@ -364,7 +366,6 @@ public class MT2 extends JFrame {
     private void setInsurance() {
         if (!tempQuote.service().isManned()) {
             insuranceButton.setVisible(true);
-
             insuranceLabel.setVisible(true);
         }
         else {
