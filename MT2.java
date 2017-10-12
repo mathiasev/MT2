@@ -34,7 +34,7 @@ public class MT2 extends JFrame {
     radiobutton2,
     radiobutton3;
     private ButtonGroup buttonGroup = new ButtonGroup();
-    private JButton button1;
+    private JButton button1, button2;
     private JPanel panel1, panel2;
     private List<String> lsServiceStrings, lsClientStrings;
     private QuoteList qlQuotes = new QuoteList();
@@ -49,7 +49,14 @@ public class MT2 extends JFrame {
     insuranceValue;
     private JToggleButton   nitroButton,
     insuranceButton;
-    private boolean bGoodToGo = false;
+    private boolean bGoodToGo,
+    bClientSet,
+    bOrbitSet,
+    bOrbitRequired,
+    bInsuranceRequired,
+    bInsuranceSet,
+    bGenerateQuote,
+    bServiceSet;
 
     /**
      * MT2 Constructor
@@ -129,12 +136,14 @@ public class MT2 extends JFrame {
         SetOrbitLevel_Label.setBounds(10*SCALING,y,100*SCALING,30*SCALING);
         SetOrbitLevel_Label.setVisible(false);
         SetOrbitLevel_Label.setFont(FONT);
-        
+
         ActionListener listener = new ActionListener(){
-      public void actionPerformed(ActionEvent evt) {
-        System.out.println(((JRadioButton)evt.getSource()).getText());
-      }
-    };
+                public void actionPerformed(ActionEvent evt) {
+                    //System.out.println(((JRadioButton)evt.getSource()).getText());
+                    bOrbitSet = true;
+                    checkGo();
+                }
+            };
 
         radiobutton1 = new JRadioButton();
         radiobutton1.setBackground(BG_COLOR);
@@ -209,7 +218,6 @@ public class MT2 extends JFrame {
                 }
             });
 
-            
         y+=ROW_HEIGHT;
         y+=ROW_HEIGHT;
 
@@ -219,17 +227,30 @@ public class MT2 extends JFrame {
         button1.setVisible(false);
         button1.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent evt) {
-                    if(bGoodToGo) {
+                    checkGo();
+                    if(bGenerateQuote) {
+
                         qlQuotes.add(tempQuote);
                         WebQuote webQ = new WebQuote(tempQuote);
                         htmlLabel.setText(webQ.getHTML());
                         panel1.setVisible(false);
                         panel2.setVisible(true);
-                    } 
+                    }
                     else {System.out.println("Error Somewhere");}
                 }
             });
-
+            
+        button2 = new JButton("Back");
+        button2.setBounds(10*SCALING, 10*SCALING, 10*SCALING, 10*SCALING);
+        button2.setFont(FONT);
+        button2.setVisible(true);
+        button2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+            panel1.setVisible(true);
+            panel2.setVisible(false);
+        }
+        });
+        
         panel1 = new JPanel(null);
         panel1.setBorder(BorderFactory.createEtchedBorder(1));
         panel1.setBounds(0*SCALING,0*SCALING,500*SCALING,400*SCALING);
@@ -238,10 +259,10 @@ public class MT2 extends JFrame {
         panel1.setEnabled(true);
         panel1.setFont(FONT);
         panel1.setVisible(true);
-        
+
         htmlLabel.setFont(FONT);
         htmlLabel.setBounds(0,0,500*SCALING, 400*SCALING);
-        
+
         panel2 = new JPanel(null);
         panel2.setBorder(BorderFactory.createEtchedBorder(1));
         panel2.setBounds(0*SCALING,0*SCALING,500*SCALING,400*SCALING);
@@ -250,8 +271,8 @@ public class MT2 extends JFrame {
         panel2.setEnabled(false);
         panel2.setFont(FONT);
         panel2.setVisible(false);
+        panel2.add(button2);
         panel2.add(htmlLabel);
-        
 
         //adding components to contentPane panel
         panel1.add(button1);
@@ -275,7 +296,6 @@ public class MT2 extends JFrame {
         panel1.add(insuranceButton);
         panel1.add(insuranceValue);
 
-        
         contentPane.add(panel1);
         contentPane.add(panel2);
         //adding panel to JFrame and seting of window position and close operation
@@ -286,15 +306,33 @@ public class MT2 extends JFrame {
         this.setVisible(true);
     }
 
-  
+    private void checkGo() {
+
+        //Client needs to be set && Service needs to be set
+        // if Orbit Required
+        //        orbit needs to be set
+        // if Insurance required
+        //        insurance needs to be set
+        //
+        if ((bClientSet && bServiceSet && (!bOrbitRequired && !bInsuranceRequired ) ||
+            (bOrbitRequired && bOrbitSet && !bInsuranceRequired) ||
+            (bOrbitRequired && bOrbitSet && bInsuranceRequired && bInsuranceSet)))
+        {  bGenerateQuote = true; button1.setVisible(true);}
+    }
+
     private void setPayloadValue(ChangeEvent e) {
         tempQuote.setPayloadValue((Double)insuranceValue.getValue());
+
+        bInsuranceSet = true;
+        checkGo();
     }
 
     private void submitClient(ActionEvent evt) {
         tempQuote.setClient(clClientList.get(combobox1.getSelectedIndex()));  
         clientLabel.setText(tempQuote.client().getName());
         clientLabel.setVisible(true);
+
+        bClientSet = true; checkGo();
     }
 
     //Method actionPerformed for button1
@@ -302,10 +340,16 @@ public class MT2 extends JFrame {
         tempQuote.setService(slServiceList.get(combobox2.getSelectedIndex()));
         codeLabel.setText(tempQuote.service().getDescription());
         codeLabel.setVisible(true);
+        bServiceSet = true;
+        insuranceButton.setVisible(false);
+        insuranceValue.setVisible(false);
+        insuranceLabel.setVisible(false);
+        nitroButton.setVisible(false);
+        nitroLabel.setVisible(false);  
 
         if(!tempQuote.service().askOrbit() && tempQuote.service().isManned()) {
-            bGoodToGo = true;
-            button1.setVisible(true);
+            bOrbitSet = true;
+            //button1.setVisible(true);
         }
         else {
             setOrbit();
@@ -313,13 +357,14 @@ public class MT2 extends JFrame {
             setInsurance();
 
         }
+        checkGo();
 
     }
 
     private void setInsurance() {
         if (!tempQuote.service().isManned()) {
             insuranceButton.setVisible(true);
-            insuranceValue.setVisible(true);
+
             insuranceLabel.setVisible(true);
         }
         else {
@@ -350,6 +395,7 @@ public class MT2 extends JFrame {
         orbitLabel.setVisible(false);
 
         if(tempQuote.service().askOrbit()) {
+            bOrbitRequired = true;
             for (int i = 0; i<tempQuote.service().getOrbits().length; i++) {
                 switch(tempQuote.service().getOrbits()[i]) {
                     case "LEO":
