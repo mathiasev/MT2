@@ -38,7 +38,7 @@ public class MT2 extends JFrame {
     radiobutton2,
     radiobutton3;
     private ButtonGroup buttonGroup = new ButtonGroup();
-    private JButton button1, button2;
+    private JButton button1, button2, button3;
     private JPanel panel1, panel2;
     private List<String> lsServiceStrings, lsClientStrings;
     private QuoteList qlQuotes = new QuoteList();
@@ -255,13 +255,25 @@ public class MT2 extends JFrame {
             });
             
         button2 = new JButton("Back");
-        button2.setBounds(10*SCALING, 10*SCALING, 10*SCALING, 10*SCALING);
+        button2.setBounds(10*SCALING, 10*SCALING, 50*SCALING, 20*SCALING);
         button2.setFont(FONT);
         button2.setVisible(true);
         button2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
             panel1.setVisible(true);
             panel2.setVisible(false);
+        }
+        });
+        
+        button3 = new JButton("Create Web Quote");
+        button3.setBounds(80*SCALING, 10*SCALING, 50*SCALING, 20*SCALING);
+        button3.setFont(FONT);
+        button3.setVisible(true);
+        button2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+            webQ.saveHTML();
+            JOptionPane.showMessageDialog(null, "File Saved");
+
         }
         });
         
@@ -286,6 +298,7 @@ public class MT2 extends JFrame {
         panel2.setFont(FONT);
         panel2.setVisible(false);
         panel2.add(button2);
+        panel2.add(button3);
         panel2.add(htmlLabel);
 
         //adding components to contentPane panel
@@ -357,7 +370,9 @@ public class MT2 extends JFrame {
         bServiceSet = true;
         if(!insuranceButton.isSelected() && tempQuote.service().isManned()) {insuranceButton.setVisible(false);
         insuranceValue.setVisible(false);
-        insuranceLabel.setVisible(false);}
+        insuranceLabel.setVisible(false);
+    tempQuote.setInsurance(false);
+tempQuote.setNitrogen(false);}
         nitroButton.setVisible(false);
         nitroLabel.setVisible(false);  
 
