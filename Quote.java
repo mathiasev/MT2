@@ -47,7 +47,7 @@ public class Quote
     public void setLaunches(int iLaunches) {this.iLaunches = iLaunches; }
 
     public void setClient(Client cClient) {this.cClient = cClient;}
-    
+
     public void setService(Service scServiceCode) { this.scServiceCode = scServiceCode;}
 
     public void setOrbitLevel(String sOrbitLevel) { this.sOrbitLevel = sOrbitLevel;}
@@ -68,36 +68,32 @@ public class Quote
         // Calculate Nitrogen Cost
         this.dNitrogenCost = (bNitrogen) ? this.iLaunches * NITROGEN_COST : 0;
 
-            // Calculate Discount
+        // Calculate Discount
 
         this.dDiscount = (this.iLaunches > 4) ? (-1 *(this.dServiceCost * DISCOUNT_PERCENT)) : 0;
 
-        
         // Set Gross Cost 
         this.dGrossCost = this.dServiceCost + this.dNitrogenCost + this.dDiscount;
-        
-     // Calulate Tax
+
+        // Calulate Tax
         this.dTax = (isTax())? this.dGrossCost * TAX_RATE: 0;
 
-         // Set Nett Cost
+        // Set Nett Cost
         this.dNettCost = this.dGrossCost + this.dTax;
-        
-        
+
         // Calculate Insurance Cost
         int iNearestMillion = (int)(Math.ceil(this.dPayloadValue/1000000));
         this.dInsuranceCost = (bInsurance) ? (iNearestMillion) * INSURANCE_COST : 0;
 
-
    
         //Calculate NESA Tax
-         if("GTO".equals(this.sOrbitLevel.toUpperCase())) {
-             
-        System.out.println(this.sOrbitLevel + " * " + NESA_TAX_RATE);
-            this.dNESACost = this.dGrossCost * NESA_TAX_RATE;}
-            else { this.dNESACost = 0.0;
-            }
+        if("GTO".equals(this.sOrbitLevel.toUpperCase())) {
 
-      
+            System.out.println(this.sOrbitLevel + " * " + NESA_TAX_RATE);
+            this.dNESACost = this.dGrossCost * NESA_TAX_RATE;}
+        else { this.dNESACost = 0.0;
+        }
+
        
         this.dInvoiceCost = this.dNettCost + this.dInsuranceCost + this.dNESACost;
     }
@@ -106,10 +102,13 @@ public class Quote
      * Getters for values
      */
     public double getNitrogenUnitCost() {return this.NITROGEN_COST;}
-    
+
     public Client client() {return this.cClient;}
+
     public Service service() { return this.scServiceCode;}
-    
+
+    public String getOrbit() { return this.sOrbitLevel;}
+
     public double getInvoiceCost() {return this.dInvoiceCost;}
 
     public double getPayloadValue() {return this.dPayloadValue;}
