@@ -266,13 +266,13 @@ public class MT2 extends JFrame {
         });
         
         button3 = new JButton("Create Web Quote");
-        button3.setBounds(80*SCALING, 10*SCALING, 50*SCALING, 20*SCALING);
+        button3.setBounds(80*SCALING, 10*SCALING, 120*SCALING, 20*SCALING);
         button3.setFont(FONT);
         button3.setVisible(true);
-        button2.addActionListener(new ActionListener() {
+        button3.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
             webQ.saveHTML();
-            JOptionPane.showMessageDialog(null, "File Saved");
+            
 
         }
         });
@@ -401,6 +401,8 @@ tempQuote.setNitrogen(false);}
             insuranceButton.setVisible(false);
             insuranceValue.setVisible(false);
             insuranceLabel.setVisible(false);
+            tempQuote.setInsurance(false);
+            
         }
     }
 

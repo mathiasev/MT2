@@ -6,10 +6,10 @@
  */
 public class Quote
 {
-    private static final double NITROGEN_COST = 180000.00;
+    private static final double NITROGEN_COST = 185000.00;
     private static final double INSURANCE_COST = 97100;
     private static final double DISCOUNT_PERCENT = 0.02;
-    private static final double NESA_TAX_RATE = 0.004;
+    private static final double NESA_TAX_RATE = 0.006;
     private static final double TAX_RATE = 0.03;
 
     private Service scServiceCode;
@@ -85,9 +85,9 @@ public class Quote
         int iNearestMillion = (int)(Math.ceil(this.dPayloadValue/1000000));
         this.dInsuranceCost = (bInsurance) ? (iNearestMillion) * INSURANCE_COST : 0;
 
-   
+        System.out.println(this.sOrbitLevel);
         //Calculate NESA Tax
-        if("GTO".equals(this.sOrbitLevel.toUpperCase())) {
+        if("GTO".equals(this.sOrbitLevel.toUpperCase()) || "CSO".equals(this.sOrbitLevel.toUpperCase()) ) {
 
             System.out.println(this.sOrbitLevel + " * " + NESA_TAX_RATE);
             this.dNESACost = this.dGrossCost * NESA_TAX_RATE;}
@@ -121,7 +121,7 @@ public class Quote
 
     public double getServiceCost() { return this.dServiceCost;}
 
-    public boolean isNESA() { return (this.sOrbitLevel.equals("GTO")) ? true :  false;}
+    public boolean isNESA() { return (this.sOrbitLevel.equals("GTO") || this.sOrbitLevel.equals("CSO")) ? true :  false;}
 
     public boolean isNitrogen() { return (this.dNitrogenCost > 0) ? true : false;}
 
