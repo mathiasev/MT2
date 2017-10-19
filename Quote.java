@@ -6,8 +6,8 @@
  */
 public class Quote
 {
-    private static final double NITROGEN_COST = 185000.00;
-    private static final double INSURANCE_COST = 97100;
+    private double NITROGEN_COST = 185000.00;
+    private double INSURANCE_COST = 97100;
     private static final double DISCOUNT_PERCENT = 0.02;
     private static final double NESA_TAX_RATE = 0.006;
     private static final double TAX_RATE = 0.03;
@@ -48,7 +48,10 @@ public class Quote
 
     public void setClient(Client cClient) {this.cClient = cClient;}
 
-    public void setService(Service scServiceCode) { this.scServiceCode = scServiceCode;}
+    public void setService(Service scServiceCode) { this.scServiceCode = scServiceCode;
+                                                  
+                                                  this.NITROGEN_COST = scServiceCode.getNitrogenCost();
+                                                  this.INSURANCE_COST = scServiceCode.getInsuranceCost();}
 
     public void setOrbitLevel(String sOrbitLevel) { this.sOrbitLevel = sOrbitLevel;}
 
