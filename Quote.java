@@ -7,8 +7,8 @@
 public class Quote
 {
 
-    private double NITROGEN_COST = new ServiceList().getNitrogenCost();;
-    private double INSURANCE_COST = new ServiceList().getInsuranceCost();
+    private double NITROGEN_COST    = 0;
+    private double INSURANCE_COST =0;
     private static final double DISCOUNT_PERCENT = 0.02;
     private double NESA_TAX_RATE = 0.006;
     private static final double TAX_RATE = 0.03;
@@ -33,14 +33,16 @@ public class Quote
     private double dNettCost        = 0.0;
     private double dGrossCost       = 0.0;
     private double dInvoiceCost     = 0.0;
-    
 
     /**
      * Constructor for objects of class Quote
      */
-    public Quote()
+    public Quote(ServiceList slServiceList)
     {
-
+        NITROGEN_COST   =  slServiceList.getNitrogenCost();
+        INSURANCE_COST  =  slServiceList.getInsuranceCost();
+        
+       // System.out.println(INSURANCE_COST);
     }
 
     /**
@@ -64,6 +66,7 @@ public class Quote
      * To be called before getting any value;
      */
     public void calculate() {
+        //System.out.println("Ins cost"  + INSURANCE_COST);
         // Calculate Service Cost
         this.dServiceCost = this.scServiceCode.getCost() * this.iLaunches;
 
@@ -96,7 +99,6 @@ public class Quote
         else { this.dNESACost = 0.0;
         }
 
-       
         this.dInvoiceCost = this.dNettCost + this.dInsuranceCost + this.dNESACost;
     }
 

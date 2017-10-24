@@ -42,7 +42,7 @@ public class MT2 extends JFrame {
     private JPanel panel1, panel2;
     private List<String> lsServiceStrings, lsClientStrings;
     private QuoteList qlQuotes = new QuoteList();
-    private Quote tempQuote = new Quote();
+    private Quote tempQuote;
     private ServiceList serviceList = new ServiceList();
     private ClientList clientList = new ClientList();
     private List<Client> clClientList;
@@ -81,6 +81,8 @@ public class MT2 extends JFrame {
         lsServiceStrings = serviceList.getNames();
         clClientList = clientList.getClientList();
         lsClientStrings = clientList.getCodes();
+        
+        tempQuote = new Quote(serviceList);
 
         SetClientCode_Label = new JLabel("Client Code");
         SetClientCode_Label.setBounds(10*SCALING,y,100*SCALING,30*SCALING);
