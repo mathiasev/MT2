@@ -6,6 +6,7 @@
  */
 public class Quote
 {
+
     private double NITROGEN_COST = new ServiceList().getNitrogenCost();;
     private double INSURANCE_COST = new ServiceList().getInsuranceCost();
     private static final double DISCOUNT_PERCENT = 0.02;
@@ -49,8 +50,7 @@ public class Quote
 
     public void setClient(Client cClient) {this.cClient = cClient;}
 
-    public void setService(Service scServiceCode) { this.scServiceCode = scServiceCode;
-   }
+    public void setService(Service scServiceCode) { this.scServiceCode = scServiceCode;}
 
     public void setOrbitLevel(String sOrbitLevel) { this.sOrbitLevel = sOrbitLevel;}
 
