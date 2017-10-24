@@ -6,10 +6,10 @@
  */
 public class Quote
 {
-    private static final double NITROGEN_COST = 185000.00;
-    private static final double INSURANCE_COST = 97100;
+    private double NITROGEN_COST = new ServiceList().getNitrogenCost();;
+    private double INSURANCE_COST = new ServiceList().getInsuranceCost();
     private static final double DISCOUNT_PERCENT = 0.02;
-    private static final double NESA_TAX_RATE = 0.006;
+    private double NESA_TAX_RATE = 0.006;
     private static final double TAX_RATE = 0.03;
 
     private Service scServiceCode;
@@ -32,6 +32,7 @@ public class Quote
     private double dNettCost        = 0.0;
     private double dGrossCost       = 0.0;
     private double dInvoiceCost     = 0.0;
+    
 
     /**
      * Constructor for objects of class Quote
@@ -48,7 +49,8 @@ public class Quote
 
     public void setClient(Client cClient) {this.cClient = cClient;}
 
-    public void setService(Service scServiceCode) { this.scServiceCode = scServiceCode;}
+    public void setService(Service scServiceCode) { this.scServiceCode = scServiceCode;
+   }
 
     public void setOrbitLevel(String sOrbitLevel) { this.sOrbitLevel = sOrbitLevel;}
 
